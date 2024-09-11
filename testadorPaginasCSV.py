@@ -3,12 +3,11 @@ import os
 import csv
 from datetime import datetime
 
-# Lista de URLs para verificar
-urls = [
-    "https://www.google.com",
-    "https://www.microsoft.com",
-    "https://www.nonexistentwebsite.com"
-]
+# Função para ler URLs de um arquivo
+def ler_urls_do_arquivo(caminho_arquivo):
+    with open(caminho_arquivo, 'r') as file:
+        urls = [linha.strip() for linha in file.readlines()]
+    return urls
 
 # Função para verificar a disponibilidade de uma URL
 def verificar_disponibilidade(url):
@@ -38,6 +37,10 @@ data_hora_atual = datetime.now().strftime("%Y%m%d_%H%M%S")
 pasta = "/home/mpfabbri/Documentos/Projetos/testadorPaginas/Relatorios"  # Substitua pelo caminho desejado
 nome_arquivo = f"relatorioDisponibilidade_{data_hora_atual}.csv"
 caminho_completo = os.path.join(pasta, nome_arquivo)
+
+# Ler URLs do arquivo
+caminho_arquivo_urls = "/home/mpfabbri/Documentos/Projetos/testadorPaginas/urls.txt"  # Substitua pelo caminho do seu arquivo de URLs
+urls = ler_urls_do_arquivo(caminho_arquivo_urls)
 
 # Criar a pasta se não existir
 os.makedirs(pasta, exist_ok=True)
